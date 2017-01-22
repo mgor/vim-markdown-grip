@@ -11,7 +11,7 @@ function! Vim_grip_start()
     call system('grip -b "' . b:curr_file . '" ' . b:vmg_port . ' &')
 
     " change focus back to vim, but let the browswer window have a change to open first
-    call system('sleep 0.5 && wmctrl -ia ' . current_window)
+    call system('sleep 0.8 && wmctrl -ia ' . current_window)
 endfunction
 
 function! Vim_grip_stop()
