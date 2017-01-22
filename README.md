@@ -29,6 +29,10 @@ It is possible to convert a markdown document to pdf (using `markdown-pdf`) and 
 
    `sudo npm install -g markdown-pdf`
 
+* [wmctrl](http://packages.ubuntu.com/search?keywords=wmctrl):
+
+    `sudo apt install wmctrl`
+
 ## Credits
 
 This project was inspired by [JamshedVesuna/vim-markdown-preview](https://github.com/JamshedVesuna/vim-markdown-preview).
