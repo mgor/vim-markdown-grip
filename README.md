@@ -17,17 +17,35 @@ Other from that, I also added to possibility to convert a Markdown document to P
 
 By default, when opening and saving a `.markdown` or `.md` file, `grip` will automatically start and open the preview in your default browser. When you close the opened file, `grip` will be stopped. However you'd have to close the preview manually in your browser.
 
-It is possible to convert a markdown document to pdf (using `markdown-pdf`) and then open it for preview (using `xdg-open`) with the key shortcut <kbd>F12</kbd>.
+### GitHub API rate limit
+
+To get around the GitHub API request limit (for un-authenticated usage), it is highly recommended that you [generate an access token](https://github.com/joeyespo/grip/issues/35) for GitHub and creates `~/.grip/settings.py`:
+
+```
+PASSWORD = '<access token>'
+```
+
+### Convert to PDF
+
+Convert your markdown document to a PDF by pressing <kbd>Ctrl</kbd> + <kbd>m</kbd> + <kbd>p</kbd>. This will generate a PDF document using [`markdown-pdf`](https://github.com/alanshaw/markdown-pdf) with [GitHub markdown styling](https://github.com/alanshaw/markdown-pdf).
+
+### Generate ToC
+
+Insert the notation `<!-- toc -->` in your document where the table of contents should be placed. Press <kbd>Ctrl</kbd> + <kbd>m</kbd> + <kbd>t</kbd> to generate ***or*** update the ToC. This is done by using [`markdown-toc`](https://github.com/jonschlinkert/markdown-toc).
 
 ## Requirements
 
 * [grip](https://github.com/joeyespo/grip):
 
-   `sudo -H pip3 install grip`
+    `sudo -H pip3 install grip`
 
 * [markdown-pdf](https://github.com/alanshaw/markdown-pdf):
 
-   `sudo npm install -g markdown-pdf`
+    `sudo npm install -g markdown-pdf`
+
+* [markdown-toc](https://github.com/jonschlinkert/markdown-toc):
+    
+    `sudo npm install -g markdown-toc`
 
 * [wmctrl](http://packages.ubuntu.com/search?keywords=wmctrl):
 

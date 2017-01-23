@@ -3,15 +3,17 @@ let g:vmg_port = 6418 " first open markdown document will use port 6419, second 
 
 function! Vim_grip_start()
     let b:curr_file = expand('%:p')
-    let g:vmg_port = g:vmg_port + 1 " increment global counter
-    let b:vmg_port = g:vmg_port " set a buffer variable, to be used when closing
-    let current_window = system("xprop -root _NET_ACTIVE_WINDOW | awk '{print $NF}'")
+    if !exists("b:vmg_port")
+        let g:vmg_port = g:vmg_port + 1 " increment global counter
+        let b:vmg_port = g:vmg_port " set a buffer variable, to be used when closing
+        let current_window = system("xprop -root _NET_ACTIVE_WINDOW | awk '{print $NF}'")
 
-    " start grip and open live preview in browser
-    call system('grip -b "' . b:curr_file . '" ' . b:vmg_port . ' &')
+        " start grip and open live preview in browser
+        call system('grip --quiet -b "' . b:curr_file . '" ' . b:vmg_port . ' &')
 
-    " change focus back to vim, but let the browswer window have a change to open first
-    call system('sleep 0.8 && wmctrl -ia ' . current_window)
+        " change focus back to vim, but let the browswer window have a change to open first
+        call system('sleep 0.8 && wmctrl -ia ' . current_window)
+    endif
 endfunction
 
 function! Vim_grip_stop()
@@ -25,6 +27,13 @@ function! Vim_grip_to_pdf()
     call system('xdg-open "' . b:pdf_file . '.pdf"')
 endfunction
 
+function! Vim_grip_toc()
+    let b:curr_file = expand('%:p')
+    call system('markdown-toc -i "' . b:curr_file . '"')
+    edit!
+endfunction
+
 autocmd BufNewFile,BufRead *.markdown,*.md :call Vim_grip_start()
 autocmd BufWinLeave *.markdown,*.md :call Vim_grip_stop()
-map <F12> :call Vim_grip_to_pdf()<CR>
+map <C-M>p :call Vim_grip_to_pdf()<CR><ESC>
+map <C-M>t :call Vim_grip_toc()<CR><ESC>
